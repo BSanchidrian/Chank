@@ -1,0 +1,6 @@
+# Visual studio
+.vs
+*.user
+
+# Project specifics
+build

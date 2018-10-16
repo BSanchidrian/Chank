@@ -130,7 +130,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Node.cpp" />
     <ClCompile Include="src\Chank.cpp" />
+    <ClCompile Include="src\Tree.cpp" />
+    <ClCompile Include="src\Terminal.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Node.h" />
+    <ClInclude Include="src\Tree.h" />
+    <ClInclude Include="src\Terminal.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

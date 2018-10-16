@@ -1,7 +1,10 @@
+#include "Tree.h"
 #include <iostream>
+#include "Terminal.h"
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
-	std::cout << "Hello world :D\n";
+	chank::Terminal terminal;
+	terminal.HandleInput();
 	return 0;
 }

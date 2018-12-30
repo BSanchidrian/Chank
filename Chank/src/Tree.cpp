@@ -1,5 +1,6 @@
 #include "Tree.h"
 #include <sstream>
+#include <algorithm>
 
 // Default directory size in linux
 #define DIR_SIZE 4096

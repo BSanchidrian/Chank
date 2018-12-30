@@ -25,7 +25,7 @@ namespace chank
 
     void ls(Tree* tree, std::vector<std::string> args)
     {
-        for(auto child : tree->GetCurrent()->GetChilds())
+        for (auto child : tree->GetCurrent()->GetChilds())
         {
             printf("%s\t", child->IsDir() ? "DIR" : "FILE");
             printf("%s\t", child->GetName());

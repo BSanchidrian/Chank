@@ -10,7 +10,7 @@ using chank::Terminal;
 
 Terminal::Terminal()
 {
-	this->tree = new Tree;
+    this->tree = new Tree;
     this->commandDictionary = {
         {"pwd", &pwd },
         {"cd", &cd },
@@ -25,15 +25,15 @@ Terminal::Terminal()
 
 Terminal::~Terminal()
 {
-	delete this->tree;
+    delete this->tree;
 }
 
 void Terminal::HandleInput() const
 {
-	std::string input;
-	do
-	{
-		std::cout << "root@chank:~" << this->tree->GetCurrentPath() << "$ ";
+    std::string input;
+    do
+    {
+        std::cout << "root@chank:~" << this->tree->GetCurrentPath() << "$ ";
         std::getline(std::cin, input);
 
         // Split std::string into std::vector
@@ -43,7 +43,7 @@ void Terminal::HandleInput() const
         const std::istream_iterator<std::string> end;
         std::vector<std::string> args(begin, end);
 
-	    const auto command = this->commandDictionary.find(args.front());
+        const auto command = this->commandDictionary.find(args.front());
         if (command == this->commandDictionary.end())
         {
             printf("%s: command not found\n", input.c_str());
@@ -51,7 +51,7 @@ void Terminal::HandleInput() const
         }
         args.erase(args.begin()); // removes the first argument (command name)
         // execute command
-	    command->second(this->tree, args);
+        command->second(this->tree, args);
 
-	} while (input != "exit");
+    } while (input != "exit");
 }

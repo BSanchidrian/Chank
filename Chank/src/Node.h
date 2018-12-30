@@ -8,7 +8,7 @@ namespace chank
     class Node
     {
     public:
-        Node(const int id, const char* name, bool isDir, off_t size, Node* parent);
+        Node(const int id, const char* name, const bool isDir, const off_t size, Node* parent);
         ~Node();
 
         /**

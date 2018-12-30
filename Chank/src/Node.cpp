@@ -1,12 +1,13 @@
 #include "Node.h"
 #include <ctime>
+#include <string>
 
 using chank::Node;
 
-Node::Node(const int id, const char* name, bool isDir, off_t size, Node* parent)
+Node::Node(const int id, const char* name, const bool isDir, const off_t size, Node* parent)
 {
     this->id = id;
-    strcpy_s(this->name, strlen(name) + 1, name);
+    strcpy(this->name, name);
     this->parent = parent;
     this->isDir = isDir;
     this->size = size;

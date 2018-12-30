@@ -5,10 +5,8 @@ namespace chank
 {
 	class Node
 	{
-	private:
-		int id; // Node unique identifier
 	public:
-		Node(const int id, const char* name, Node* parent);
+		Node(const int id, const char* name, bool isDir, off_t size, Node* parent);
 		~Node();
 
 		/**
@@ -17,12 +15,27 @@ namespace chank
 		 */
 		Node* AddChild(Node* node);
 
-		// GETTERS
-		int GetId() const;
+        /**
+         * Sets the current datetime as the lastest modification date of the node
+         */
+        void UpdateModificationDate();
 
-	public:                        // public variables
-		Node* Parent;              // Node Parent
-		char Name[25]{};           // TODO: preguntar por que tiene que ser char de longitud fija
-		std::vector<Node*> Childs; // Nodes that belong to the current one (directory)
+		// GETTERS
+	    int GetId() const { return this->id; };
+        char* GetName() { return this->name; }
+	    Node* GetParent() const { return this->parent; };
+        std::vector<Node*> GetChilds() const { return this->childs; }
+        bool IsDir() const { return this->isDir; }
+        off_t GetSize() const { return this->size; }
+	    time_t GetLastModification() const { return this->lastModification; }
+
+	private:
+		int id;	                    // Node unique identifier
+		Node* parent;               // Node parent
+		char name[25]{};            // Node name
+        bool isDir;                 // Is directory flag
+		std::vector<Node*> childs;  // Nodes that belong to the current one (directory)
+        off_t size;                 // Node size
+        time_t lastModification;    // Last modification date
 	};
 }

@@ -4,7 +4,8 @@
 
 int main(int argc, char** argv)
 {
-	chank::Terminal terminal;
-	terminal.HandleInput();
+	const auto terminal = new chank::Terminal();
+	terminal->HandleInput();
+    delete terminal;
 	return 0;
 }

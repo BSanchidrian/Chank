@@ -20,8 +20,9 @@ namespace chank
 		 * Adds a new new node (file/directory) as child of the current node
 		 * returns: the new node
 		 */
-		Node* AddNode(const char* name);
+		Node* CreateNode(const char* name, const bool isDir);
 
 		std::string GetCurrentPath() const;
+        Node* GetCurrent() const { return this->current; }
 	};
 }

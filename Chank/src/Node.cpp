@@ -1,6 +1,6 @@
 #include "Node.h"
 #include <ctime>
-#include <string>
+#include <cstring>
 
 using chank::Node;
 

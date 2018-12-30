@@ -1,5 +1,6 @@
 #pragma once
 #include "Tree.h"
+#include <string>
 #include <map>
 #include <functional>
 

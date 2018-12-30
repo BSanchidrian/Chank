@@ -17,4 +17,4 @@ all: $(OBJS)
 
 clean:
 	rm *.o	
-rm $(EXEC)
+	rm $(EXEC)

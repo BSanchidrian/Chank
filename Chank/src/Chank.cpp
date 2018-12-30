@@ -1,6 +1,5 @@
-#include "Tree.h"
-#include <iostream>
 #include "Terminal.h"
+#include <iostream>
 
 int main(int argc, char** argv)
 {

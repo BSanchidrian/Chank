@@ -56,9 +56,10 @@ Node* Node::FindChild(const int id) const
 	return nullptr;
 }
 
-Node* Node::UpdateNode()
+Node* Node::UpdateNode(const char * name)
 {
-	return nullptr;
+	strcpy(this->name, name);
+	return this;
 }
 
 void Node::RemoveNode()
@@ -67,6 +68,5 @@ void Node::RemoveNode()
 	if (this->isDir && !this->childs.empty())
 		return;
 
-	//this->pare
-
+	//this->parent->FindChild();
 }

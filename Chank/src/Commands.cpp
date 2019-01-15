@@ -49,11 +49,40 @@ namespace chank
         tree->CreateNode(args.front().c_str(), true);
     }
 
+	void rmdir(Tree* tree, std::vector<std::string> args)
+	{
+		REQUIRED_ARGS(1);
+
+	}
+
+	void rm(Tree* tree, std::vector<std::string> args)
+	{
+		REQUIRED_ARGS(1);
+	}
+
     void touch(Tree* tree, std::vector<std::string> args)
     {
         REQUIRED_ARGS(1);
         tree->CreateNode(args.front().c_str(), false);
     }
+
+	void mv(Tree* tree, std::vector<std::string> args)
+	{
+		REQUIRED_ARGS(2);
+		auto node = tree->GetCurrent()->FindChild(args.front().c_str());
+		if (node != nullptr)
+			node->UpdateNode(args.back().c_str());
+	}
+
+	void cp(Tree* tree, std::vector<std::string> args)
+	{
+		REQUIRED_ARGS(2);
+		auto node = tree->GetCurrent()->FindChild(args.front().c_str());
+		if (node != nullptr)
+		{
+			//tree->CreateNode()
+		}
+	}
 
     void lpwd(Tree* tree, std::vector<std::string> args)
     {
@@ -62,8 +91,13 @@ namespace chank
         printf("%s\n", cwd);
     }
 
+	void lcd(Tree* tree, std::vector<std::string> args)
+	{
+		REQUIRED_ARGS(1);
+	}
+
     void lls(Tree* tree, std::vector<std::string> args)
     {
-
+		REQUIRED_ARGS(1);
     }
 }

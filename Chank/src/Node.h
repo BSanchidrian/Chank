@@ -19,7 +19,7 @@ namespace chank
 
 		Node* FindChild(const char *name) const;
 		Node* FindChild(const int id) const;
-		Node* UpdateNode();
+		Node* UpdateNode(const char *name);
 		void RemoveNode();
 
         /**

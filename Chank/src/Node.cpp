@@ -1,7 +1,7 @@
 #include "Node.h"
 #include <ctime>
+#include <cstring>
 #include <string>
-#include <algorithm>
 
 using chank::Node;
 

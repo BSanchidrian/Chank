@@ -30,10 +30,10 @@ void Tree::ChangeCurrent(const char* name)
 		return;
 	}
 
-	auto node = this->current->FindChild(name);
+    const auto node = this->current->FindChild(name);
 	if (node == nullptr || !node->IsDir())
 	{
-		printf("El nombre del directorio no es valido\n");
+		printf("-bash: cd: %s: Not a directory\n", name);
 		return;
 	}
     this->current = node;
@@ -41,7 +41,7 @@ void Tree::ChangeCurrent(const char* name)
 
 chank::Node* Tree::CreateNode(const char* name, const bool isDir)
 {
-    Node* newNode = new Node(this->length + 1, name, isDir, isDir ? DIR_SIZE : 0, this->current);
+    const auto newNode = new Node(this->length + 1, name, isDir, isDir ? DIR_SIZE : 0, this->current);
     this->current->AddChild(newNode);
     this->lastId = this->length++;
     return newNode;

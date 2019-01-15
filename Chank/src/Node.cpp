@@ -1,6 +1,7 @@
 #include "Node.h"
 #include <ctime>
-#include <cstring>
+#include <string>
+#include <algorithm>
 
 using chank::Node;
 
@@ -29,4 +30,43 @@ Node* Node::AddChild(Node* node)
     node->UpdateModificationDate();
     this->childs.push_back(node);
     return node;
+}
+
+Node* Node::FindChild(const char *name) const
+{
+	if(this->childs.empty())
+		return nullptr;
+
+	for (auto* node : this->childs)
+		if (std::string(node->GetName()) == std::string(name))
+			return node;
+
+	return nullptr;
+}
+
+Node* Node::FindChild(const int id) const
+{
+	if (this->childs.empty())
+		return nullptr;
+
+	for (auto* node : this->childs)
+		if (node->GetId() == id)
+			return node;
+
+	return nullptr;
+}
+
+Node* Node::UpdateNode()
+{
+	return nullptr;
+}
+
+void Node::RemoveNode()
+{
+	// To remove a directory it has to be empty (no childs)
+	if (this->isDir && !this->childs.empty())
+		return;
+
+	//this->pare
+
 }

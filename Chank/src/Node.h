@@ -17,6 +17,11 @@ namespace chank
          */
         Node* AddChild(Node* node);
 
+		Node* FindChild(const char *name) const;
+		Node* FindChild(const int id) const;
+		Node* UpdateNode();
+		void RemoveNode();
+
         /**
          * Sets the current datetime as the lastest modification date of the node
          */
@@ -24,7 +29,7 @@ namespace chank
 
         // GETTERS
         int GetId() const { return this->id; };
-        char* GetName() { return this->name; }
+        const char* GetName() const { return this->name; }
         Node* GetParent() const { return this->parent; };
         std::vector<Node*> GetChilds() const { return this->childs; }
         bool IsDir() const { return this->isDir; }

@@ -12,6 +12,8 @@
 
 namespace chank
 {
+	void exit(Tree* tree, std::vector<std::string> args) { }
+
     void pwd(Tree* tree, std::vector<std::string> args)
     {
         printf("%s\n", tree->GetCurrentPath().c_str());
@@ -25,7 +27,7 @@ namespace chank
 
     void ls(Tree* tree, std::vector<std::string> args)
     {
-        for (auto child : tree->GetCurrent()->GetChilds())
+        for (auto& child : tree->GetCurrent()->GetChilds())
         {
             printf("%s\t", child->IsDir() ? "DIR" : "FILE");
             printf("%s\t", child->GetName());
@@ -50,7 +52,7 @@ namespace chank
     void touch(Tree* tree, std::vector<std::string> args)
     {
         REQUIRED_ARGS(1);
-        tree->CreateNode(args.front().c_str(), true);
+        tree->CreateNode(args.front().c_str(), false);
     }
 
     void lpwd(Tree* tree, std::vector<std::string> args)

@@ -12,14 +12,15 @@ Terminal::Terminal()
 {
     this->tree = new Tree;
     this->commandDictionary = {
-        {"pwd", &pwd },
-        {"cd", &cd },
-        {"ls", &ls },
-        {"upload", &upload },
-        {"mkdir", &mkdir },
-        {"touch", &touch },
-        {"lpwd", &lpwd },
-        {"lls", &lls },
+		{ "exit", &exit },
+		{ "pwd", &pwd },
+        { "cd", &cd },
+        { "ls", &ls },
+        { "upload", &upload },
+        { "mkdir", &mkdir },
+        { "touch", &touch },
+        { "lpwd", &lpwd },
+        { "lls", &lls },
     };
 }
 

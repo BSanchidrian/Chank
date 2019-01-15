@@ -23,8 +23,20 @@ Tree::~Tree()
 
 void Tree::ChangeCurrent(const char* name)
 {
-    // TODO:
-    this->current = this->root->GetChilds()[0];
+	if (std::string(name) == std::string(".."))
+	{
+		auto parent = this->current->GetParent();
+		this->current = (parent != nullptr) ? parent : this->current;
+		return;
+	}
+
+	auto node = this->current->FindChild(name);
+	if (node == nullptr || !node->IsDir())
+	{
+		printf("El nombre del directorio no es valido\n");
+		return;
+	}
+    this->current = node;
 }
 
 chank::Node* Tree::CreateNode(const char* name, const bool isDir)

@@ -3,6 +3,7 @@
 
 namespace chank
 {
+	void exit(Tree* tree, std::vector<std::string> args);
     void pwd(Tree* tree, std::vector<std::string> args);
     void cd(Tree* tree, std::vector<std::string> args);
     void ls(Tree* tree, std::vector<std::string> args);

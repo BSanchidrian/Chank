@@ -23,6 +23,12 @@ Terminal::Terminal()
         { "lpwd", &lpwd },
         { "lls", &lls },
     };
+
+	// Terminal header
+	printf("Current local directory: ");
+	std::vector<std::string> no_params;
+	lpwd(this->tree, no_params);
+	printf("\n");
 }
 
 Terminal::~Terminal()

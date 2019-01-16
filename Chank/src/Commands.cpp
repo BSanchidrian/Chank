@@ -1,6 +1,9 @@
 #include "Commands.h"
 #include <cstdio>  /* defines FILENAME_MAX */
 #include <ctime>
+#include <iostream>
+#include <filesystem>
+namespace fs = std::filesystem;
 
 #ifdef _WIN32
 #include <direct.h>
@@ -69,17 +72,16 @@ namespace chank
 	void mv(Tree* tree, std::vector<std::string> args)
 	{
 		REQUIRED_ARGS(2);
-		auto node = tree->GetCurrent()->FindChild(args.front().c_str());
-		if (node != nullptr)
+		if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
 			node->UpdateNode(args.back().c_str());
 	}
 
 	void cp(Tree* tree, std::vector<std::string> args)
 	{
 		REQUIRED_ARGS(2);
-		auto node = tree->GetCurrent()->FindChild(args.front().c_str());
-		if (node != nullptr)
+		if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
 		{
+			node->GetParent();
 			//tree->CreateNode()
 		}
 	}
@@ -98,6 +100,9 @@ namespace chank
 
     void lls(Tree* tree, std::vector<std::string> args)
     {
-		REQUIRED_ARGS(1);
+		char cwd[FILENAME_MAX];
+		getcwd(cwd, sizeof(cwd));
+		for (const auto & entry : fs::directory_iterator(cwd))
+			std::cout << entry.path() << std::endl;
     }
 }

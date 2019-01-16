@@ -17,6 +17,8 @@ Node::Node(const int id, const char* name, const bool isDir, const off_t size, N
 
 Node::~Node()
 {
+	for (auto& child : this->childs)
+		delete child;
     this->childs.clear();
 }
 

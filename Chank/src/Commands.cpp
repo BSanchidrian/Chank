@@ -18,20 +18,20 @@ namespace fs = std::filesystem;
 
 namespace chank
 {
-	void exit(Tree* tree, std::vector<std::string> args) { }
+	void exit(Tree* tree, std::vector<std::string> &args) { }
 
-    void pwd(Tree* tree, std::vector<std::string> args)
+    void pwd(Tree* tree, std::vector<std::string> &args)
     {
         printf("%s\n", tree->GetCurrentPath().c_str());
     }
 
-    void cd(Tree* tree, std::vector<std::string> args)
+    void cd(Tree* tree, std::vector<std::string> &args)
     {
         REQUIRED_ARGS(1);
         tree->ChangeCurrent(args.front().c_str());
     }
 
-    void ls(Tree* tree, std::vector<std::string> args)
+    void ls(Tree* tree, std::vector<std::string> &args)
     {
         for (auto& child : tree->GetCurrent()->GetChilds())
         {
@@ -44,18 +44,29 @@ namespace chank
         }
     }
 
-    void upload(Tree* tree, std::vector<std::string> args)
+    void upload(Tree* tree, std::vector<std::string> &args)
     {
         REQUIRED_ARGS(1);
+        char cwd[FILENAME_MAX];
+        getcwd(cwd, sizeof(cwd));
+        for (const auto &entry : fs::directory_iterator(cwd))
+        {
+            auto name = entry.path().filename().string();
+            if (name != args.front()) continue;
+
+            // TODO
+            if (entry.is_directory()) break;
+            tree->CreateNode(name.c_str(), false);
+        }
     }
 
-    void mkdir(Tree* tree, std::vector<std::string> args)
+    void mkdir(Tree* tree, std::vector<std::string> &args)
     {
         REQUIRED_ARGS(1);
         tree->CreateNode(args.front().c_str(), true);
     }
 
-	void rmdir(Tree* tree, std::vector<std::string> args)
+	void rmdir(Tree* tree, std::vector<std::string> &args)
 	{
 		REQUIRED_ARGS(1);
 		if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
@@ -75,7 +86,7 @@ namespace chank
 		}
 	}
 
-	void rm(Tree* tree, std::vector<std::string> args)
+	void rm(Tree* tree, std::vector<std::string> &args)
 	{
 		REQUIRED_ARGS(1);
 		if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
@@ -90,20 +101,20 @@ namespace chank
 		}
 	}
 
-    void touch(Tree* tree, std::vector<std::string> args)
+    void touch(Tree* tree, std::vector<std::string> &args)
     {
         REQUIRED_ARGS(1);
         tree->CreateNode(args.front().c_str(), false);
     }
 
-	void mv(Tree* tree, std::vector<std::string> args)
+	void mv(Tree* tree, std::vector<std::string> &args)
 	{
 		REQUIRED_ARGS(2);
 		if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
 			node->UpdateNode(args.back().c_str());
 	}
 
-	void cp(Tree* tree, std::vector<std::string> args)
+	void cp(Tree* tree, std::vector<std::string> &args)
 	{
 		REQUIRED_ARGS(2);
 		if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
@@ -113,14 +124,14 @@ namespace chank
 		}
 	}
 
-    void lpwd(Tree* tree, std::vector<std::string> args)
+    void lpwd(Tree* tree, std::vector<std::string> &args)
     {
         char cwd[FILENAME_MAX];
         getcwd(cwd, sizeof(cwd));
         printf("%s\n", cwd);
     }
 
-	void lcd(Tree* tree, std::vector<std::string> args)
+	void lcd(Tree* tree, std::vector<std::string> &args)
 	{
 		REQUIRED_ARGS(1);
 		if (chdir(args.front().c_str()) == -1)
@@ -130,7 +141,7 @@ namespace chank
 		}
 	}
 
-    void lls(Tree* tree, std::vector<std::string> args)
+    void lls(Tree* tree, std::vector<std::string> &args)
     {
         // TODO: fix the format
 		char cwd[FILENAME_MAX];

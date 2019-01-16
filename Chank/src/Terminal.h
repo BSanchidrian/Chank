@@ -13,7 +13,7 @@ namespace chank
         // Commands dictionary {
         //  key = string (command name)
         //  value = function to execute void(Tree, vector<arguments>)
-        std::map<std::string, std::function<void(Tree*, std::vector<std::string>)>> commandDictionary;
+        std::map<std::string, std::function<void(Tree*, std::vector<std::string>&)>> commandDictionary;
     public:
         Terminal();
         ~Terminal();

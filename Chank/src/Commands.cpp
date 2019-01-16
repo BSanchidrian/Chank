@@ -3,7 +3,6 @@
 #include <sys/stat.h>
 #include <cstdio>  /* defines FILENAME_MAX */
 #include <ctime>
-#include <iostream>
 #include <filesystem>
 namespace fs = std::filesystem;
 

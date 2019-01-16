@@ -23,12 +23,18 @@ Tree::~Tree()
 
 void Tree::ChangeCurrent(const char* name)
 {
-	if (std::string(name) == std::string(".."))
+    const auto sname = std::string(name);
+	if (sname == std::string(".."))
 	{
 		auto parent = this->current->GetParent();
 		this->current = (parent != nullptr) ? parent : this->current;
 		return;
 	}
+    if(sname == std::string("/"))
+    {
+        this->current = this->root;
+        return;
+    }
 
     const auto node = this->current->FindChild(name);
 	if (node == nullptr || !node->IsDir())

@@ -46,6 +46,8 @@ void Terminal::HandleInput() const
     {
         std::cout << "root@chank:~" << this->tree->GetCurrentPath() << "$ ";
         std::getline(std::cin, input);
+        // empty input
+        if (input.empty()) continue;
 
         // Split std::string into std::vector
         // https://stackoverflow.com/questions/5607589/right-way-to-split-an-stdstring-into-a-vectorstring

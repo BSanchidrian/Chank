@@ -6,11 +6,6 @@ namespace chank
 {
     class Tree
     {
-    private:
-        Node* root;    // Pointer to the `main` node
-        Node* current; // Current node
-        int length;    // Number of nodes
-        int lastId;    // ID of the last node added
     public:
         Tree();
         ~Tree();
@@ -25,5 +20,10 @@ namespace chank
 
         std::string GetCurrentPath() const;
         Node* GetCurrent() const { return this->current; }
+    private:
+        Node* root;    // Pointer to the `main` node
+        Node* current; // Current node
+        int length;    // Number of nodes
+        int lastId;    // ID of the last node added
     };
 }

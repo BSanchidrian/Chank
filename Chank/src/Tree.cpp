@@ -43,7 +43,7 @@ chank::Node* Tree::CreateNode(const char* name, const bool isDir)
 {
 	if (const auto temp = this->GetCurrent()->FindChild(name); temp != nullptr)
 	{
-		printf("mkdir: cannot create directory `%s': File exists\n", name);
+		printf("File/directory `%s': already exists\n", name);
 		return nullptr;
 	}
 

@@ -133,17 +133,18 @@ namespace chank
 
     void lls(Tree* tree, std::vector<std::string> args)
     {
+        // TODO: fix the format
 		char cwd[FILENAME_MAX];
 		getcwd(cwd, sizeof(cwd));
 		for (const auto &entry : fs::directory_iterator(cwd))
 		{
-			struct stat result;
-			if (stat(entry.path().string().c_str(), &result) == 0)
-				printf("%.19s\t", asctime(gmtime(&result.st_mtime)));
+            printf("%s\t", entry.is_directory() ? "DIR" : "FILE");
+            printf("%s\t", entry.path().filename().string().c_str());
+            printf("%ld\t", static_cast<long>(entry.file_size()));
 
-			printf("%s\t", entry.is_directory() ? "<DIR>" : "");
-			printf("%ld\t", (long)entry.file_size());
-			printf("%s\n", entry.path().filename().string().c_str());
+            struct stat result;
+            if (stat(entry.path().string().c_str(), &result) == 0)
+                printf("%s", asctime(gmtime(&result.st_mtime)));
 		}
     }
 }

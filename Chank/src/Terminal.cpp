@@ -17,11 +17,14 @@ Terminal::Terminal()
         { "cd", &cd },
 		{ "ls", &ls },
 		{ "mv", &mv },
+		{ "rm", &rm },
+		{ "rmdir", &rmdir },
         { "upload", &upload },
         { "mkdir", &mkdir },
         { "touch", &touch },
         { "lpwd", &lpwd },
-        { "lls", &lls },
+		{ "lls", &lls },
+		{ "lcd", &lcd },
     };
 
 	// Terminal header

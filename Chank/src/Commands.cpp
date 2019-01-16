@@ -10,6 +10,7 @@ namespace fs = std::filesystem;
 #ifdef _WIN32
 #include <direct.h>
 #define getcwd _getcwd
+#define chdir _chdir
 #define stat _stat
 #else
 #include <unistd.h>
@@ -58,12 +59,36 @@ namespace chank
 	void rmdir(Tree* tree, std::vector<std::string> args)
 	{
 		REQUIRED_ARGS(1);
+		if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
+		{
+			if (!node->IsDir())
+			{
+				printf("-bash: rmdir: %s: Not a directory. Use `rm` instead.\n", args.front().c_str());
+				return;
+			}
 
+			if (node->GetChilds().size() > 0)
+			{
+				printf("-bash: rmdir: %s: Not empty.\n", args.front().c_str());
+				return;
+			}
+			tree->GetCurrent()->RemoveChild(node->GetId());
+		}
 	}
 
 	void rm(Tree* tree, std::vector<std::string> args)
 	{
 		REQUIRED_ARGS(1);
+		if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
+		{
+			if (node->IsDir())
+			{
+				printf("-bash: rm: %s: Is a directory. Use `rmdir` instead.\n", args.front().c_str());
+				return;
+			}
+
+			tree->GetCurrent()->RemoveChild(node->GetId());
+		}
 	}
 
     void touch(Tree* tree, std::vector<std::string> args)
@@ -99,6 +124,11 @@ namespace chank
 	void lcd(Tree* tree, std::vector<std::string> args)
 	{
 		REQUIRED_ARGS(1);
+		if (chdir(args.front().c_str()) == -1)
+		{
+			printf("-bash: lcd: %s: Not a directory\n", args.front().c_str());
+			return;
+		}
 	}
 
     void lls(Tree* tree, std::vector<std::string> args)

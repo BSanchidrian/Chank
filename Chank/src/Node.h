@@ -20,7 +20,7 @@ namespace chank
 		Node* FindChild(const char *name) const;
 		Node* FindChild(const int id) const;
 		Node* UpdateNode(const char *name);
-		void RemoveNode();
+		void RemoveChild(const int id);
 
         /**
          * Sets the current datetime as the lastest modification date of the node
@@ -35,6 +35,8 @@ namespace chank
         bool IsDir() const { return this->isDir; }
         off_t GetSize() const { return this->size; }
         time_t GetLastModification() const { return this->lastModification; }
+
+		bool operator==(const Node& a) { return this->id == a.GetId(); }
 
     private:
         int id;	                    // Node unique identifier

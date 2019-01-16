@@ -1,4 +1,6 @@
 #include "Commands.h"
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <cstdio>  /* defines FILENAME_MAX */
 #include <ctime>
 #include <iostream>
@@ -8,6 +10,7 @@ namespace fs = std::filesystem;
 #ifdef _WIN32
 #include <direct.h>
 #define getcwd _getcwd
+#define stat _stat
 #else
 #include <unistd.h>
 #endif
@@ -102,7 +105,15 @@ namespace chank
     {
 		char cwd[FILENAME_MAX];
 		getcwd(cwd, sizeof(cwd));
-		for (const auto & entry : fs::directory_iterator(cwd))
-			std::cout << entry.path() << std::endl;
+		for (const auto &entry : fs::directory_iterator(cwd))
+		{
+			struct stat result;
+			if (stat(entry.path().string().c_str(), &result) == 0)
+				printf("%.19s\t", asctime(gmtime(&result.st_mtime)));
+
+			printf("%s\t", entry.is_directory() ? "<DIR>" : "");
+			printf("%ld\t", (long)entry.file_size());
+			printf("%s\n", entry.path().filename().string().c_str());
+		}
     }
 }

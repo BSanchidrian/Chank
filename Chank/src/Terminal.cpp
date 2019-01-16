@@ -17,12 +17,21 @@ Terminal::Terminal()
         { "cd", &cd },
 		{ "ls", &ls },
 		{ "mv", &mv },
+		{ "rm", &rm },
+		{ "rmdir", &rmdir },
         { "upload", &upload },
         { "mkdir", &mkdir },
         { "touch", &touch },
         { "lpwd", &lpwd },
-        { "lls", &lls },
+		{ "lls", &lls },
+		{ "lcd", &lcd },
     };
+
+	// Terminal header
+	printf("Current local directory: ");
+	std::vector<std::string> no_params;
+	lpwd(this->tree, no_params);
+	printf("\n");
 }
 
 Terminal::~Terminal()

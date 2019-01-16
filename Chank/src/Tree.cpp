@@ -41,6 +41,12 @@ void Tree::ChangeCurrent(const char* name)
 
 chank::Node* Tree::CreateNode(const char* name, const bool isDir)
 {
+	if (const auto temp = this->GetCurrent()->FindChild(name); temp != nullptr)
+	{
+		printf("mkdir: cannot create directory `%s': File exists\n", name);
+		return nullptr;
+	}
+
     const auto newNode = new Node(this->length + 1, name, isDir, isDir ? DIR_SIZE : 0, this->current);
     this->current->AddChild(newNode);
     this->lastId = this->length++;

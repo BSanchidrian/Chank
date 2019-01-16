@@ -3,6 +3,8 @@
 #include <ctime>
 #include <sys/stat.h>
 
+#define NAME_MAX_LENGTH 25
+
 namespace chank
 {
     class Node
@@ -39,7 +41,7 @@ namespace chank
     private:
         int id;	                    // Node unique identifier
         Node* parent;               // Node parent
-        char name[25]{};            // Node name
+        char name[NAME_MAX_LENGTH]{};            // Node name
         bool isDir;                 // Is directory flag
         std::vector<Node*> childs;  // Nodes that belong to the current one (directory)
         off_t size;                 // Node size

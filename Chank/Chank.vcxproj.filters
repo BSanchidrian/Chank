@@ -12,5 +12,6 @@
     <ClInclude Include="src\Node.h" />
     <ClInclude Include="src\Terminal.h" />
     <ClInclude Include="src\Commands.h" />
+    <ClInclude Include="src\BinaryUtils.h" />
   </ItemGroup>
 </Project>

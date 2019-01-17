@@ -1,6 +1,8 @@
 #include "Tree.h"
-#include <sstream>
+#include "BinaryUtils.h"
+
 #include <algorithm>
+#include <ctime>
 
 // Default directory size in linux
 #define DIR_SIZE 4096
@@ -9,11 +11,16 @@ using chank::Tree;
 
 Tree::Tree()
 {
-    const auto rootName = "root";
-    this->root = new Node(0, rootName, true, DIR_SIZE, nullptr); // `root` has Id 0
-    this->current = this->root;
-    this->length = 1;
-    this->lastId = this->root->GetId();
+	this->Load();
+
+	if (this->root == nullptr) // if couldn't be loaded correctly
+	{
+		const auto rootName = "root";
+		this->root = new Node(0, rootName, true, DIR_SIZE, time(nullptr), nullptr); // `root` has Id 0
+		this->length = 1;
+		this->lastId = 0;
+	}
+	this->current = this->root;
 }
 
 Tree::~Tree()
@@ -53,10 +60,36 @@ chank::Node* Tree::CreateNode(const char* name, const bool isDir)
 		return nullptr;
 	}
 
-    const auto newNode = new Node(this->length + 1, name, isDir, isDir ? DIR_SIZE : 0, this->current);
+    const auto newNode = new Node(++this->lastId, name, isDir, isDir ? DIR_SIZE : 0, time(nullptr), this->current);
     this->current->AddChild(newNode);
-    this->lastId = this->length++;
+	this->length++;
+	this->Save();
     return newNode;
+}
+
+void Tree::Save()
+{
+	chank::BinaryOut file("tree.dat");
+	// Tree information
+	file << this->length;
+	file << this->lastId;
+
+	// Nodes information
+	this->root->Save(file);
+	file.close();
+}
+
+void Tree::Load()
+{
+	chank::BinaryIn file("tree.dat");
+	if (!file.good()) return;
+
+	// Tree information
+	file >> this->length;
+	file >> this->lastId;
+
+	this->root = Node::Load(file);
+	file.close();
 }
 
 std::string Tree::GetCurrentPath() const

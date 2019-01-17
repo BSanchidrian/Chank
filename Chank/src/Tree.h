@@ -18,6 +18,10 @@ namespace chank
          */
         Node* CreateNode(const char* name, const bool isDir);
 
+		void Save();
+		void Load();
+
+		void DecrementLength() { this->length--; }
         std::string GetCurrentPath() const;
         Node* GetCurrent() const { return this->current; }
     private:

@@ -145,6 +145,7 @@
     <ClCompile Include="src\Terminal.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\BinaryUtils.h" />
     <ClInclude Include="src\Commands.h" />
     <ClInclude Include="src\Node.h" />
     <ClInclude Include="src\Tree.h" />

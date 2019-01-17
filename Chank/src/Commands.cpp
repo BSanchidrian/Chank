@@ -54,7 +54,7 @@ namespace chank
             auto name = entry.path().filename().string();
             if (name != args.front()) continue;
 
-            // TODO
+            // TODO!!!
             if (entry.is_directory()) break;
             tree->CreateNode(name.c_str(), false);
         }
@@ -83,6 +83,7 @@ namespace chank
 				return;
 			}
 			tree->GetCurrent()->RemoveChild(node->GetId());
+			tree->DecrementLength();
 		}
 	}
 
@@ -98,6 +99,7 @@ namespace chank
 			}
 
 			tree->GetCurrent()->RemoveChild(node->GetId());
+			tree->DecrementLength();
 		}
 	}
 
@@ -114,6 +116,7 @@ namespace chank
 			node->UpdateNode(args.back().c_str());
 	}
 
+	// TODO!!!!!
 	void cp(Tree* tree, std::vector<std::string> &args)
 	{
 		REQUIRED_ARGS(2);
@@ -143,7 +146,7 @@ namespace chank
 
     void lls(Tree* tree, std::vector<std::string> &args)
     {
-        // TODO: fix the format
+        // TODO: fix the format | file names have different sizes
 		char cwd[FILENAME_MAX];
 		getcwd(cwd, sizeof(cwd));
 		for (const auto &entry : fs::directory_iterator(cwd))

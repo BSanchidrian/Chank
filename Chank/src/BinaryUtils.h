@@ -29,7 +29,7 @@ namespace chank
 		BinaryOut& operator << (const char* ptr)
 		{
 			auto len = strlen(ptr);
-			this->write((char*)&len, 4);
+			this->write((char*)&len, sizeof(int));
 			this->write(ptr, len);
 			return *this;
 		}
@@ -52,7 +52,7 @@ namespace chank
 		BinaryIn& operator >> (char* ptr)
 		{
 			int len;
-			this->read((char*)&len, 4);
+			this->read((char*)&len, sizeof(int));
 			this->read(ptr, len);
 			return *this;
 		}

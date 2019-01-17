@@ -58,6 +58,8 @@ namespace chank
             if (entry.is_directory()) break;
             tree->CreateNode(name.c_str(), false);
         }
+
+		tree->Save(); // TODO check this.. idk if it should be always called
     }
 
     void mkdir(Tree* tree, std::vector<std::string> &args)
@@ -84,6 +86,7 @@ namespace chank
 			}
 			tree->GetCurrent()->RemoveChild(node->GetId());
 			tree->DecrementLength();
+			tree->Save();
 		}
 	}
 
@@ -100,6 +103,7 @@ namespace chank
 
 			tree->GetCurrent()->RemoveChild(node->GetId());
 			tree->DecrementLength();
+			tree->Save();
 		}
 	}
 
@@ -113,7 +117,10 @@ namespace chank
 	{
 		REQUIRED_ARGS(2);
 		if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
+		{
 			node->UpdateNode(args.back().c_str());
+			tree->Save();
+		}
 	}
 
 	// TODO!!!!!
@@ -124,6 +131,7 @@ namespace chank
 		{
 			node->GetParent();
 			//tree->CreateNode()
+			tree->Save();
 		}
 	}
 

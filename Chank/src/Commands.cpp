@@ -129,7 +129,7 @@ namespace chank
 		REQUIRED_ARGS(2);
 		if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
 		{
-			node->GetParent();
+			//auto copiedNode = new Node(node);
 			//tree->CreateNode()
 			tree->Save();
 		}

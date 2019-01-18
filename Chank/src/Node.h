@@ -44,12 +44,12 @@ namespace chank
         time_t GetLastModification() const { return this->lastModification; }
 
     private:
-        int id;	                    // Node unique identifier
-        Node* parent;               // Node parent
-        char name[NAME_MAX_LENGTH]{};            // Node name
-        bool isDir;                 // Is directory flag
-        std::vector<Node*> childs;  // Nodes that belong to the current one (directory)
-        off_t size;                 // Node size
-        time_t lastModification;    // Last modification date
+        int id;							// Node unique identifier
+        Node* parent;					// Node parent
+        char name[NAME_MAX_LENGTH]{};   // Node name
+        bool isDir;						// Is directory flag
+        std::vector<Node*> childs;		// Nodes that belong to the current one (directory)
+        off_t size;						// Node size
+        time_t lastModification;		// Last modification date
     };
 }

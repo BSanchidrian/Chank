@@ -42,7 +42,7 @@ Node* Node::FindChild(const char *name) const
 	if(this->childs.empty())
 		return nullptr;
 
-	for (auto* node : this->childs)
+	for (const auto& node : this->childs)
 		if (std::string(node->GetName()) == std::string(name))
 			return node;
 
@@ -54,7 +54,7 @@ Node* Node::FindChild(const int id) const
 	if (this->childs.empty())
 		return nullptr;
 
-	for (auto* node : this->childs)
+	for (const auto& node : this->childs)
 		if (node->GetId() == id)
 			return node;
 
@@ -74,8 +74,8 @@ void Node::RemoveChild(const int id)
 	{
 		if (node->GetId() == id)
 		{
-			this->childs.erase(this->childs.begin() + index);
 			delete node;
+			this->childs.erase(this->childs.begin() + index);
 			break;
 		}
 		index++;

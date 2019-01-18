@@ -123,14 +123,32 @@ namespace chank
 		}
 	}
 
-	// TODO!!!!!
 	void cp(Tree* tree, std::vector<std::string> &args)
 	{
 		REQUIRED_ARGS(2);
 		if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
 		{
-			//auto copiedNode = new Node(node);
-			//tree->CreateNode()
+			// copying destination -> inside existent directory
+			auto destination = args.back();
+			if (destination.find('/'))
+			{
+				auto dirName = destination.substr(0, destination.find('/'));
+				auto dir = tree->GetCurrent()->FindChild(dirName.c_str());
+				if(dir != nullptr)
+				{
+					// If the directory exists
+					auto oldCurrent = tree->GetCurrent()->GetName();
+					tree->ChangeCurrent(dir->GetName());
+					tree->CopyNode(*node);
+					tree->ChangeCurrent(oldCurrent);
+				}
+				else
+				{
+					//dir doesn't exist | create?
+					int b = 1;
+				}
+			}
+
 			tree->Save();
 		}
 	}

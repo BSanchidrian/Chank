@@ -18,6 +18,8 @@ namespace chank
          */
         Node* CreateNode(const char* name, const bool isDir);
 
+		Node* CopyNode(const Node& node);
+
 		void Save();
 		void Load();
 

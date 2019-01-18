@@ -70,6 +70,18 @@ chank::Node* Tree::CreateNode(const char* name, const bool isDir)
     return newNode;
 }
 
+chank::Node* Tree::CopyNode(const Node& node)
+{
+	const auto newNode = new Node(++this->lastId, node.GetName(), node.IsDir(), node.GetSize(), time(nullptr), this->current);
+	this->current->AddChild(newNode);
+	this->length++;
+
+	for (const auto& child : node.GetChilds())
+		newNode->AddChild(new Node(*child));
+
+	return newNode;
+}
+
 void Tree::Save()
 {
 	chank::BinaryOut file("tree.dat");

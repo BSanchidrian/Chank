@@ -89,7 +89,7 @@ void Node::Save(BinaryOut& file) const
 	file << this->lastModification;
 	file << this->size;
 	file << this->isDir;
-	file << this->childs.size();
+	file << static_cast<int>(this->childs.size());
 
 	for (const auto &child : this->childs)
 	{

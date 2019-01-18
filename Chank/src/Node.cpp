@@ -100,7 +100,6 @@ void Node::Save(BinaryOut& file) const
 Node* Node::Load(BinaryIn& file)
 {
 	int id;
-	Node* parent;
 	char name[NAME_MAX_LENGTH]{};
 	bool isDir;
 	int childNum;

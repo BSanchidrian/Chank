@@ -82,34 +82,6 @@ void Tree::Save()
 	file.close();
 }
 
-Node* test(chank::BinaryIn& file)
-{
-	int id;
-	Node* parent;
-	char name[NAME_MAX_LENGTH]{};
-	bool isDir;
-	int childNum;
-	off_t size;
-	time_t lastModification;
-
-	file >> id;
-	file >> name;
-	file >> lastModification;
-	file >> size;
-	file >> isDir;
-	file >> childNum;
-
-	auto node = new Node(id, name, isDir, size, lastModification, nullptr);
-	for (; childNum > 0; childNum--)
-	{
-		auto child = test(file);
-		child->SetParent(node);
-		node->AddChild(child);
-	}
-
-	return node;
-}
-
 void Tree::Load()
 {
 	chank::BinaryIn file("tree.dat");
@@ -119,7 +91,7 @@ void Tree::Load()
 	file >> this->length;
 	file >> this->lastId;
 
-	this->root = test(file);
+	this->root = Node::Load(file);
 	file.close();
 }
 

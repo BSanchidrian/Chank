@@ -15,8 +15,6 @@ namespace chank
 		template<typename DataType>
 		BinaryOut& operator << (const DataType& data)
 		{
-			auto type = typeid(DataType).name();
-			auto size = sizeof(DataType);
 			this->write((char*)&data, sizeof(DataType));
 			return *this;
 		}
@@ -47,8 +45,6 @@ namespace chank
 		template<typename DataType>
 		BinaryIn& operator >> (DataType& data)
 		{
-			auto type = typeid(DataType).name();
-			auto size = sizeof(DataType);
 			this->read((char*)&data, sizeof(DataType));
 			return *this;
 		}

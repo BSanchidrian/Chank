@@ -4,5 +4,6 @@
 
 # Project specifics
 build
+ChankCLI
 *.dat
 *.o

@@ -1,7 +1,10 @@
 # Visual studio
 .vs
+.vscode
 *.user
 
 # Project specifics
 build
+ChankCLI
 *.dat
+*.o

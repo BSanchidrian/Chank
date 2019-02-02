@@ -179,7 +179,8 @@ namespace chank
 		{
             printf("%s\t", entry.is_directory() ? "DIR" : "FILE");
             printf("%s\t", entry.path().filename().string().c_str());
-            printf("%ld\t", static_cast<long>(entry.file_size()));
+			auto size = entry.is_directory() ? 4096 : static_cast<long>(entry.file_size());
+            printf("%ld\t", size);
 
             struct stat result;
             if (stat(entry.path().string().c_str(), &result) == 0)

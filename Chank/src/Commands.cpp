@@ -18,7 +18,7 @@ namespace fs = std::filesystem;
 
 namespace chank
 {
-	void exit(Tree* tree, std::vector<std::string> &args) { }
+    void exit(Tree* tree, std::vector<std::string> &args) { }
 
     void pwd(Tree* tree, std::vector<std::string> &args)
     {
@@ -59,7 +59,7 @@ namespace chank
             tree->CreateNode(name.c_str(), false);
         }
 
-		tree->Save(); // TODO check this.. idk if it should be always called
+        tree->Save(); // TODO check this.. idk if it should be always called
     }
 
     void mkdir(Tree* tree, std::vector<std::string> &args)
@@ -68,44 +68,44 @@ namespace chank
         tree->CreateNode(args.front().c_str(), true);
     }
 
-	void rmdir(Tree* tree, std::vector<std::string> &args)
-	{
-		REQUIRED_ARGS(1);
-		if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
-		{
-			if (!node->IsDir())
-			{
-				printf("-bash: rmdir: %s: Not a directory. Use `rm` instead.\n", args.front().c_str());
-				return;
-			}
+    void rmdir(Tree* tree, std::vector<std::string> &args)
+    {
+        REQUIRED_ARGS(1);
+        if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
+        {
+            if (!node->IsDir())
+            {
+                printf("-bash: rmdir: %s: Not a directory. Use `rm` instead.\n", args.front().c_str());
+                return;
+            }
 
-			if (node->GetChilds().size() > 0)
-			{
-				printf("-bash: rmdir: %s: Not empty.\n", args.front().c_str());
-				return;
-			}
-			tree->GetCurrent()->RemoveChild(node->GetId());
-			tree->DecrementLength();
-			tree->Save();
-		}
-	}
+            if (node->GetChilds().size() > 0)
+            {
+                printf("-bash: rmdir: %s: Not empty.\n", args.front().c_str());
+                return;
+            }
+            tree->GetCurrent()->RemoveChild(node->GetId());
+            tree->DecrementLength();
+            tree->Save();
+        }
+    }
 
-	void rm(Tree* tree, std::vector<std::string> &args)
-	{
-		REQUIRED_ARGS(1);
-		if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
-		{
-			if (node->IsDir())
-			{
-				printf("-bash: rm: %s: Is a directory. Use `rmdir` instead.\n", args.front().c_str());
-				return;
-			}
+    void rm(Tree* tree, std::vector<std::string> &args)
+    {
+        REQUIRED_ARGS(1);
+        if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
+        {
+            if (node->IsDir())
+            {
+                printf("-bash: rm: %s: Is a directory. Use `rmdir` instead.\n", args.front().c_str());
+                return;
+            }
 
-			tree->GetCurrent()->RemoveChild(node->GetId());
-			tree->DecrementLength();
-			tree->Save();
-		}
-	}
+            tree->GetCurrent()->RemoveChild(node->GetId());
+            tree->DecrementLength();
+            tree->Save();
+        }
+    }
 
     void touch(Tree* tree, std::vector<std::string> &args)
     {
@@ -113,45 +113,45 @@ namespace chank
         tree->CreateNode(args.front().c_str(), false);
     }
 
-	void mv(Tree* tree, std::vector<std::string> &args)
-	{
-		REQUIRED_ARGS(2);
-		if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
-		{
-			node->UpdateNode(args.back().c_str());
-			tree->Save();
-		}
-	}
+    void mv(Tree* tree, std::vector<std::string> &args)
+    {
+        REQUIRED_ARGS(2);
+        if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
+        {
+            node->UpdateNode(args.back().c_str());
+            tree->Save();
+        }
+    }
 
-	void cp(Tree* tree, std::vector<std::string> &args)
-	{
-		REQUIRED_ARGS(2);
-		if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
-		{
-			// copying destination -> inside existent directory
-			auto destination = args.back();
-			if (destination.find('/'))
-			{
-				auto dirName = destination.substr(0, destination.find('/'));
-				auto dir = tree->GetCurrent()->FindChild(dirName.c_str());
-				if(dir != nullptr)
-				{
-					// If the directory exists
-					auto oldCurrent = tree->GetCurrent()->GetName();
-					tree->ChangeCurrent(dir->GetName());
-					tree->CopyNode(*node);
-					tree->ChangeCurrent(oldCurrent);
-				}
-				else
-				{
-					//dir doesn't exist | create?
-					int b = 1;
-				}
-			}
+    void cp(Tree* tree, std::vector<std::string> &args)
+    {
+        REQUIRED_ARGS(2);
+        if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
+        {
+            // copying destination -> inside existent directory
+            auto destination = args.back();
+            if (destination.find('/'))
+            {
+                auto dirName = destination.substr(0, destination.find('/'));
+                auto dir = tree->GetCurrent()->FindChild(dirName.c_str());
+                if (dir != nullptr)
+                {
+                    // If the directory exists
+                    auto oldCurrent = tree->GetCurrent()->GetName();
+                    tree->ChangeCurrent(dir->GetName());
+                    tree->CopyNode(*node);
+                    tree->ChangeCurrent(oldCurrent);
+                }
+                else
+                {
+                    //TODO: dir doesn't exist | create?
+                    int b = 1;
+                }
+            }
 
-			tree->Save();
-		}
-	}
+            tree->Save();
+        }
+    }
 
     void lpwd(Tree* tree, std::vector<std::string> &args)
     {
@@ -160,31 +160,31 @@ namespace chank
         printf("%s\n", cwd);
     }
 
-	void lcd(Tree* tree, std::vector<std::string> &args)
-	{
-		REQUIRED_ARGS(1);
-		if (chdir(args.front().c_str()) == -1)
-		{
-			printf("-bash: lcd: %s: Not a directory\n", args.front().c_str());
-			return;
-		}
-	}
+    void lcd(Tree* tree, std::vector<std::string> &args)
+    {
+        REQUIRED_ARGS(1);
+        if (chdir(args.front().c_str()) == -1)
+        {
+            printf("-bash: lcd: %s: Not a directory\n", args.front().c_str());
+            return;
+        }
+    }
 
     void lls(Tree* tree, std::vector<std::string> &args)
     {
         // TODO: fix the format | file names have different sizes
-		char cwd[FILENAME_MAX];
-		getcwd(cwd, sizeof(cwd));
-		for (const auto &entry : fs::directory_iterator(cwd))
-		{
+        char cwd[FILENAME_MAX];
+        getcwd(cwd, sizeof(cwd));
+        for (const auto &entry : fs::directory_iterator(cwd))
+        {
             printf("%s\t", entry.is_directory() ? "DIR" : "FILE");
             printf("%s\t", entry.path().filename().string().c_str());
-			auto size = entry.is_directory() ? 4096 : static_cast<long>(entry.file_size());
+            auto size = entry.is_directory() ? 4096 : static_cast<long>(entry.file_size());
             printf("%ld\t", size);
 
             struct stat result;
             if (stat(entry.path().string().c_str(), &result) == 0)
                 printf("%s", asctime(gmtime(&result.st_mtime)));
-		}
+        }
     }
 }

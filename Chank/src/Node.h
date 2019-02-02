@@ -21,23 +21,23 @@ namespace chank
          */
         Node* AddChild(Node* node);
 
-		Node* FindChild(const char *name) const;
-		Node* FindChild(const int id) const;
-		Node* UpdateNode(const char *name);
-		void RemoveChild(const int id);
-		void Save(BinaryOut& file) const;
-		static Node* Load(BinaryIn& file);
+        Node* FindChild(const char *name) const;
+        Node* FindChild(const int id) const;
+        Node* UpdateNode(const char *name);
+        void RemoveChild(const int id);
+        void Save(BinaryOut& file) const;
+        static Node* Load(BinaryIn& file);
 
         /**
-         * Sets the current datetime as the lastest modification date of the node
+         * Sets the current datetime as the latest modification date of the node
          */
         void UpdateModificationDate();
 
         // GETTERS | SETTERS
         int GetId() const { return this->id; };
         const char* GetName() const { return this->name; }
-		Node* GetParent() const { return this->parent; };
-		void SetParent(Node* parent) { this->parent = parent; };
+        Node* GetParent() const { return this->parent; };
+        void SetParent(Node* parent) { this->parent = parent; };
         std::vector<Node*> GetChilds() const { return this->childs; }
         bool IsDir() const { return this->isDir; }
         off_t GetSize() const { return this->size; }
@@ -51,5 +51,6 @@ namespace chank
         std::vector<Node*> childs;		// Nodes that belong to the current one (directory)
         off_t size;						// Node size
         time_t lastModification;		// Last modification date
+        std::vector<int> blockIds;      // File block id list
     };
 }

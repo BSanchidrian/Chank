@@ -125,7 +125,7 @@ void mv(Tree *tree, std::vector<std::string> &args)
 	REQUIRED_ARGS(2);
 	if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
 	{
-		node->UpdateNode(args.back().c_str());
+		node->Rename(args.back().c_str());
 		tree->Save();
 	}
 }

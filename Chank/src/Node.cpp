@@ -4,11 +4,11 @@
 #include <string>
 #include <vector>
 
-using chank::Node;
-using chank::BinaryOut;
 using chank::BinaryIn;
+using chank::BinaryOut;
+using chank::Node;
 
-Node::Node(const int id, const char* name, const bool isDir, const off_t size, const time_t lastModification, Node* parent)
+Node::Node(const int id, const char *name, const bool isDir, const off_t size, const time_t lastModification, Node *parent)
 {
     this->id = id;
     strcpy(this->name, name);
@@ -16,12 +16,12 @@ Node::Node(const int id, const char* name, const bool isDir, const off_t size, c
     this->isDir = isDir;
     this->size = size;
     this->lastModification = lastModification;
-    this->childs = std::vector<Node*>();
+    this->childs = std::vector<Node *>();
 }
 
 Node::~Node()
 {
-    for (auto& child : this->childs)
+    for (auto &child : this->childs)
         delete child;
     this->childs.clear();
 }
@@ -31,46 +31,47 @@ void Node::UpdateModificationDate()
     this->lastModification = time(nullptr);
 }
 
-Node* Node::AddChild(Node* node)
+Node *Node::AddChild(Node *node)
 {
     this->childs.push_back(node);
     return this;
 }
 
-Node* Node::FindChild(const char *name) const
+Node *Node::FindChild(const char *name) const
 {
     if (this->childs.empty())
         return nullptr;
 
-    for (const auto& node : this->childs)
+    for (const auto &node : this->childs)
         if (std::string(node->GetName()) == std::string(name))
             return node;
 
     return nullptr;
 }
 
-Node* Node::FindChild(const int id) const
+Node *Node::FindChild(const int id) const
 {
     if (this->childs.empty())
         return nullptr;
 
-    for (const auto& node : this->childs)
+    for (const auto &node : this->childs)
         if (node->GetId() == id)
             return node;
 
     return nullptr;
 }
 
-Node* Node::UpdateNode(const char *name)
+Node *Node::Rename(const char *name)
 {
     strcpy(this->name, name);
+    this->UpdateModificationDate();
     return this;
 }
 
 void Node::RemoveChild(const int id)
 {
     int index = 0;
-    for (auto& node : this->childs)
+    for (auto &node : this->childs)
     {
         if (node->GetId() == id)
         {
@@ -82,7 +83,7 @@ void Node::RemoveChild(const int id)
     }
 }
 
-void Node::Save(BinaryOut& file) const
+void Node::Save(BinaryOut &file) const
 {
     file << this->id;
     file << this->name;
@@ -97,7 +98,7 @@ void Node::Save(BinaryOut& file) const
     }
 }
 
-Node* Node::Load(BinaryIn& file)
+Node *Node::Load(BinaryIn &file)
 {
     int id;
     char name[NAME_MAX_LENGTH]{};

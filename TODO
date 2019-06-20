@@ -1,6 +1,9 @@
+Escribir como compilar en readme
+
 Parte 1
 -------------------------
-mv no funciona bien
+[DONE] mv no funciona bien
 [DONE] cp no implementado
+mv hacia ".." no funciona
 upload folder
 

@@ -123,9 +123,35 @@ void touch(Tree *tree, std::vector<std::string> &args)
 void mv(Tree *tree, std::vector<std::string> &args)
 {
 	REQUIRED_ARGS(2);
-	if (auto node = tree->GetCurrent()->FindChild(args.front().c_str()); node != nullptr)
+	if (auto nodeToMove = tree->GetCurrent()->FindChild(args.front().c_str()); nodeToMove != nullptr)
 	{
-		node->Rename(args.back().c_str());
+		// copying destination -> inside existent directory
+		auto destination = args.back();
+
+		bool destinationIsFolder = false;
+		// remove slash
+		if (destination.find('/') != std::string::npos)
+		{
+			destination = destination.substr(0, destination.find('/'));
+			destinationIsFolder = true;
+		}
+
+		auto destinationNode = tree->GetCurrent()->FindChild(destination.c_str());
+		if (destinationNode == nullptr || !destinationNode->IsDir())
+		{
+			if (destinationIsFolder)
+			{
+				printf("-bash: mv: cannot move '%s' to '%s': Not a directory\n", nodeToMove->GetName(), destination.c_str());
+				return;
+			}
+			nodeToMove->Rename(destination.c_str());
+		}
+		else if (destinationNode->IsDir())
+		{
+			tree->GetCurrent()->RemoveChild(nodeToMove->GetId());
+			nodeToMove->SetParent(destinationNode);
+			destinationNode->AddChild(nodeToMove);
+		}
 		tree->Save();
 	}
 }

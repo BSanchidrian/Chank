@@ -12,20 +12,20 @@ Terminal::Terminal()
 {
     this->tree = new Tree;
     this->commandDictionary = {
-        { "exit", &exit },
-        { "pwd", &pwd },
-        { "cd", &cd },
-        { "ls", &ls },
-        { "mv", &mv },
-        { "rm", &rm },
-        { "rmdir", &rmdir },
-        { "upload", &upload },
-        { "cp", &cp },
-        { "mkdir", &mkdir },
-        { "touch", &touch },
-        { "lpwd", &lpwd },
-        { "lls", &lls },
-        { "lcd", &lcd },
+        {"exit", &exit},
+        {"pwd", &pwd},
+        {"cd", &cd},
+        {"ls", &ls},
+        {"mv", &mv},
+        {"rm", &rm},
+        {"rmdir", &rmdir},
+        {"upload", &upload},
+        {"cp", &cp},
+        {"mkdir", &mkdir},
+        {"touch", &touch},
+        {"lpwd", &lpwd},
+        {"lls", &lls},
+        {"lcd", &lcd},
     };
 
     // Terminal header
@@ -48,7 +48,8 @@ void Terminal::HandleInput() const
         std::cout << "root@chank:~" << this->tree->GetCurrentPath() << "$ ";
         std::getline(std::cin, input);
         // empty input
-        if (input.empty()) continue;
+        if (input.empty())
+            continue;
 
         // Split std::string into std::vector
         // https://stackoverflow.com/questions/5607589/right-way-to-split-an-stdstring-into-a-vectorstring

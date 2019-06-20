@@ -138,6 +138,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\DiskBlock.cpp" />
+    <ClCompile Include="src\Disk.cpp" />
     <ClCompile Include="src\Commands.cpp" />
     <ClCompile Include="src\Node.cpp" />
     <ClCompile Include="src\Chank.cpp" />
@@ -145,6 +147,8 @@
     <ClCompile Include="src\Terminal.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\DiskBlock.h" />
+    <ClInclude Include="src\Disk.h" />
     <ClInclude Include="src\BinaryUtils.h" />
     <ClInclude Include="src\Commands.h" />
     <ClInclude Include="src\Node.h" />
